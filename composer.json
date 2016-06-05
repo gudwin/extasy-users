@@ -1,0 +1,25 @@
+{
+  "name": "gudwin/extasy-users",
+  "description": "Users module for Extasy",
+  "authors": [
+    {
+      "name": "Dmitry Shevchenko",
+      "email": "dmitry@dd-team.org"
+    }
+  ],
+  "require": {
+    "php": ">=5.5.0",
+    "phpunit/phpunit": "*",
+    "gudwin/extasy-model" : "dev-master",
+    "gudwin/faid" : "dev-master"
+  },
+  "require-dev": {
+    "catacgc/juice-di-container" : "dev-master"
+  },
+  "autoload": {
+    "psr-4": {
+      "Extasy\\Users\\tests\\": "tests/",
+      "Extasy\\Users\\": "src/"
+    }
+  }
+}
