@@ -1,6 +1,6 @@
 {
   "name": "gudwin/extasy-users",
-  "description": "Users module for Extasy",
+  "description": "Users module for Extasy. Allows to store and load users",
   "authors": [
     {
       "name": "Dmitry Shevchenko",
