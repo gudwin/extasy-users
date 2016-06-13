@@ -10,7 +10,7 @@
   "require": {
     "php": ">=5.5.0",
     "phpunit/phpunit": "*",
-    "gudwin/extasy-model" : "dev-master",
+    "gudwin/extasy-model" : "0.1.*",
     "gudwin/faid" : "dev-master"
   },
   "require-dev": {
