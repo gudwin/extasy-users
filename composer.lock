@@ -63,16 +63,16 @@
         },
         {
             "name": "gudwin/extasy-model",
-            "version": "0.1.0",
+            "version": "0.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/gudwin/extasy-model.git",
-                "reference": "25d8fe300c9fb62527fe482590919c77efb95b3b"
+                "reference": "929ea31e16aef7485525e0af96c2f7a8b92ecb4f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/gudwin/extasy-model/zipball/25d8fe300c9fb62527fe482590919c77efb95b3b",
-                "reference": "25d8fe300c9fb62527fe482590919c77efb95b3b",
+                "url": "https://api.github.com/repos/gudwin/extasy-model/zipball/929ea31e16aef7485525e0af96c2f7a8b92ecb4f",
+                "reference": "929ea31e16aef7485525e0af96c2f7a8b92ecb4f",
                 "shasum": ""
             },
             "require": {
@@ -95,7 +95,7 @@
                 }
             ],
             "description": "Base model for Extasy",
-            "time": "2016-06-11 16:28:39"
+            "time": "2016-06-13 13:16:53"
         },
         {
             "name": "gudwin/faid",
