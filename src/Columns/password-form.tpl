@@ -1,4 +1,5 @@
 <?
+// @todo will be rewritten
 use \Extasy\CMS;
 CMSDesign::insertScript( CMS::getResourcesUrl() . 'extasy/js/Password.js');
 

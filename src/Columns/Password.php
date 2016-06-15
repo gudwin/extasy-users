@@ -3,7 +3,6 @@
 namespace Extasy\Users\Columns {
 
     use \Faid\UParser;
-    use \Faid\Configure\Configure;
     use \InvalidArgumentException;
     use Extasy\Model\Columns\Input;
 
@@ -11,12 +10,20 @@ namespace Extasy\Users\Columns {
     {
         const MIN_LENGTH = 8;
 
+        public function __construct($fieldName, $fieldInfo, $Value)
+        {
+            if (!isset($fieldInfo['hash'])) {
+                throw new InvalidArgumentException('Security hash field not set');
+            }
+            parent::__construct($fieldName, $fieldInfo, $Value);
+        }
+
         public function setValue($newValue)
         {
             if (empty($newValue)) {
                 return;
             }
-            $this->aValue = self::hash($newValue);
+            $this->aValue = $this->hash($newValue);
         }
 
         public function getAdminFormValue()
@@ -30,12 +37,9 @@ namespace Extasy\Users\Columns {
             return UParser::parsePHPFile($tpl, $parseData);
         }
 
-        public static function hash($str)
+        public function hash($str)
         {
-
-
-            $salt = Configure::read(CMS::SaltConfigureKey);
-            $salt = md5($salt);
+            $salt = md5($this->fieldInfo['hash']);
             $result = crypt($str, $salt);
 
             return $result;

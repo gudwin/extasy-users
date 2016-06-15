@@ -3,6 +3,7 @@ namespace Extasy\Users;
 
 use Extasy\Model\Model as BaseModel;
 use Extasy\Users\Configuration\ConfigurationRepository;
+use \InvalidArgumentException;
 
 /**
  * Class User
@@ -28,6 +29,7 @@ class User extends BaseModel
     public function __construct(array $initialData, ConfigurationRepository $configurationRepository)
     {
         $this->configurationRepository = $configurationRepository;
+
         parent::__construct($initialData);
 
     }
@@ -37,7 +39,10 @@ class User extends BaseModel
         $initialFields = [
             'id' => '\\Extasy\\Model\\Columns\\Index',
             'login' => '\\Extasy\\Users\\Columns\\Login',
-            'password' => '\\Extasy\\Users\\Columns\\Password',
+            'password' => [
+                'class' => '\\Extasy\\Users\\Columns\\Password',
+                'hash' => $this->configurationRepository->read()->securityHash,
+            ],
             'time_access' => '\\Extasy\\Users\\Columns\\TimeAccess',
             'registered' => '\\Extasy\\Model\\Columns\\Datetime',
             'confirmation_code' => '\\Extasy\\Users\\Columns\\ConfirmationCode',

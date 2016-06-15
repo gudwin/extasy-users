@@ -71,14 +71,14 @@ class TimeAccess extends BaseColumn
     /**
      *
      */
-    public function onLogin()
+    public function validateAccessTime( $time )
     {
-        $dayOfWeek = intval(date('N')) - 1;
+        $dayOfWeek = intval(date('N', $time )) - 1;
         $timeAllowed = $this->value[$dayOfWeek]['time'];
         if (!empty($this->value[$dayOfWeek]['day'])) {
             if (!empty($timeAllowed)) {
                 $hours = explode('-', $timeAllowed);
-                $currentHour = intval(date('H'));
+                $currentHour = intval(date('H', $time ));
                 $isBetween = (intval($hours[0]) <= $currentHour) && ($currentHour <= intval($hours[1]));
 
                 if (!$isBetween) {
@@ -87,7 +87,7 @@ class TimeAccess extends BaseColumn
                 }
             }
         } else {
-            throw new TimeAccessException('Time Access Restriction - Not allowed at this time');
+            throw new TimeAccessException('Time Access Restriction - Not allowed at this day');
         }
 
     }
