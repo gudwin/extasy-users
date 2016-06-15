@@ -13,9 +13,6 @@
     "gudwin/extasy-model" : "0.1.*",
     "gudwin/faid" : "dev-master"
   },
-  "require-dev": {
-    "catacgc/juice-di-container" : "dev-master"
-  },
   "autoload": {
     "psr-4": {
       "Extasy\\Users\\tests\\": "tests/",
