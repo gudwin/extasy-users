@@ -23,7 +23,7 @@ namespace Extasy\Users\Columns {
             if (empty($newValue)) {
                 return;
             }
-            $this->aValue = $this->hash($newValue);
+            $this->value = $this->hash($newValue);
         }
 
         public function getAdminFormValue()
