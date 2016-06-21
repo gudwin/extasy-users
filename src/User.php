@@ -33,7 +33,10 @@ class User extends BaseModel
         parent::__construct($initialData);
 
     }
-
+    public function isBanned() {
+        $isBanned = !empty( $this->confirmation_code->getValue());
+        return $isBanned;
+    }
     public function getFieldsInfo()
     {
         $initialFields = [
