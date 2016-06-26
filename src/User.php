@@ -41,16 +41,34 @@ class User extends BaseModel
     {
         $initialFields = [
             'id' => '\\Extasy\\Model\\Columns\\Index',
-            'login' => '\\Extasy\\Users\\Columns\\Login',
+            'login' => [
+                'class' => '\\Extasy\\Users\\Columns\\Login',
+                'parse_field' => 'getValue',
+            ],
             'password' => [
                 'class' => '\\Extasy\\Users\\Columns\\Password',
                 'hash' => $this->configurationRepository->read()->securityHash,
+                'parse_field' => 'getValue',
             ],
-            'time_access' => '\\Extasy\\Users\\Columns\\TimeAccess',
-            'registered' => '\\Extasy\\Model\\Columns\\Datetime',
-            'confirmation_code' => '\\Extasy\\Users\\Columns\\ConfirmationCode',
-            'email_confirmation_code' => '\\Extasy\\Model\\Columns\\Input',
-            'email' => '\\Extasy\\Users\\Columns\\Email',
+            'time_access' => [
+                'class' => '\\Extasy\\Users\\Columns\\TimeAccess',
+                'parse_field' => 'getValue',
+            ],
+            'registered' => [
+                'class' => '\\Extasy\\Model\\Columns\\Datetime',
+                'parse_field' => 'getValue',
+            ],
+            'confirmation_code' => [
+                'class' => '\\Extasy\\Users\\Columns\\ConfirmationCode',
+
+            ],
+            'email_confirmation_code' => [
+                'class' => '\\Extasy\\Model\\Columns\\Input',
+            ],
+            'email' => [
+                'class' => '\\Extasy\\Users\\Columns\\Email',
+                'parse_field' => 'getValue',
+            ],
             'new_email' => '\\Extasy\\Model\\Columns\\Input',
 
         ];
