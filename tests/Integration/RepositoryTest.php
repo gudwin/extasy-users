@@ -1,6 +1,7 @@
 <?php
 namespace Extasy\Users\tests\Integration;
 
+use Extasy\Users\Search\Request;
 use Extasy\Users\SearchCondition;
 use Extasy\Users\tests\BaseTest;
 use Extasy\Users\RepositoryInterface;
@@ -30,9 +31,7 @@ abstract class RepositoryTest extends BaseTest
             new UserAccount(['login' => self::Marie], $this->configurationRepository),
             new UserAccount(['login' => self::Elen], $this->configurationRepository),
         ];
-        foreach ($data as $user) {
-            $this->repository->insert($user);
-        }
+        $this->fixtureUsers( $data );
     }
 
     /**
@@ -110,17 +109,29 @@ abstract class RepositoryTest extends BaseTest
 
     public function testFind()
     {
-        $condition = new SearchCondition();
+        $condition = new Request();
         $condition->fields = [
             'login' => self::Marie
         ];
         $found = $this->repository->find($condition);
-        $this->assertEquals(self::Marie, $found->login->getValue());
+        $this->assertEquals(self::Marie, $found[0]->login->getValue());
     }
 
     public function testFindWithOffsets()
     {
-        $condition = new SearchCondition();
+        $fixture = 'Hello world!';
+        $configuration = $this->configurationRepository->read();
+        $configuration->fields =['a' => '\\Extasy\\Model\\Columns\\Input'];
+
+        $this->configurationRepository->write( $configuration );
+        $data = [
+            new UserAccount(['login' => self::Marie,'a' => $fixture], $this->configurationRepository),
+            new UserAccount(['login' => self::Elen,'a' => $fixture ], $this->configurationRepository),
+        ];
+        $this->fixtureUsers( $data );
+
+        $condition = new Request();
+        $condition->fields = ['a' => $fixture];
         $condition->offset = 1;
         $condition->limit = 1;
         $result = $this->repository->find($condition);
@@ -130,11 +141,19 @@ abstract class RepositoryTest extends BaseTest
 
     public function testFindOne()
     {
-        $condition = new SearchCondition();
+        $condition = new Request();
+        $condition->fields =[
+            'login' => self::Marie
+        ];
         $condition->offset = 0;
         $condition->limit = 1;
-        $result = $this->repository->find($condition);
+        $result = $this->repository->findOne($condition);
         $this->assertEquals(self::Marie, $result->login->getValue());
     }
+    protected function fixtureUsers( $data ) {
 
+        foreach ($data as $user) {
+            $this->repository->insert($user);
+        }
+    }
 }

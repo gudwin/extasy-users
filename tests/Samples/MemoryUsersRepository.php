@@ -3,6 +3,7 @@
 
 namespace Extasy\Users\tests\Samples;
 
+use Extasy\Model\NotFoundException;
 use Extasy\Users\RepositoryInterface;
 use Extasy\Users\User;
 use Extasy\Users\Search\Request;
@@ -43,7 +44,7 @@ class MemoryUsersRepository implements RepositoryInterface
     {
         foreach ($this->data as $key => $user) {
             if ($user->id->getValue() == $updatedUser->id->getValue()) {
-                $this->data[$key] = $updatedUser;
+                unset( $this->data[$key]);
 
                 return;
             }
@@ -63,6 +64,7 @@ class MemoryUsersRepository implements RepositoryInterface
                 return $user;
             }
         }
+        throw new NotFoundException('User not found');
     }
 
     public function find(Request $condition)
@@ -76,7 +78,8 @@ class MemoryUsersRepository implements RepositoryInterface
                     $fieldResult[] = $row;
                 }
             }
-            $result = array_map('unserialize', array_intersect(array_map('serialize', $result), array_map('serialize', $fieldResult)) );
+            $result = array_map('unserialize',
+                array_intersect(array_map('serialize', $result), array_map('serialize', $fieldResult)));
 
         }
         if (!empty($condition->likeFields)) {
@@ -86,9 +89,20 @@ class MemoryUsersRepository implements RepositoryInterface
                     $likeResults[] = $row;
                 }
             }
-            $result = array_map('unserialize', array_intersect(array_map('serialize', $result), array_map('serialize', $likeResults)) );
+            $result = array_map('unserialize',
+                array_intersect(array_map('serialize', $result), array_map('serialize', $likeResults)));
         }
-
+        if (!empty($condition->offset)) {
+            for ($i = 0; $i < $condition->offset; $i++) {
+                if (!empty($result)) {
+                    array_shift($result);
+                }
+            }
+        }
+        if ( !empty( $condition->limit )) {
+            $tmp = array_chunk( $result, $condition->limit);
+            $result = !empty( $tmp ) ? $tmp[0] : [];
+        }
 
         return $result;
     }
@@ -111,6 +125,7 @@ class MemoryUsersRepository implements RepositoryInterface
                 return false;
             }
         }
+
         return true;
 
     }
