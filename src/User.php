@@ -63,7 +63,7 @@ class User extends BaseModel
 
             ],
             'email_confirmation_code' => [
-                'class' => '\\Extasy\\Model\\Columns\\Input',
+                'class' => '\\Extasy\\Model\\Columns\\ConfirmationCode',
             ],
             'email' => [
                 'class' => '\\Extasy\\Users\\Columns\\Email',
