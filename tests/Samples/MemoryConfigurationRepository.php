@@ -14,7 +14,7 @@ class MemoryConfigurationRepository implements ConfigurationRepository
 
         $this->confuguration = new Configuration();
         $this->confuguration->fields = [
-            'name' => '\\Extasy\\Model\\Columns\\Index'
+            'name' => '\\Extasy\\Model\\Columns\\Input'
         ];
         $this->confuguration->securityHash = self::securityHash;
     }
