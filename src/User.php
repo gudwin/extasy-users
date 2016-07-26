@@ -14,7 +14,7 @@ use \InvalidArgumentException;
  * @property \Extasy\Users\Columns\TimeAccess $time_access
  * @property \Extasy\Model\Columns\Datetime $registered
  * @property \Extasy\Users\Columns\ConfirmationCode $confirmation_code
- * @property \Extasy\Model\Columns\Input $email_confirmation_code
+ * @property \Extasy\Model\Columns\ConfirmationCode $email_confirmation_code
  * @property \Extasy\Users\Columns\Email $email
  * @property \Extasy\Model\Columns\Input $new_email
  */
@@ -68,7 +68,7 @@ class User extends BaseModel
                 'class' => '\\Extasy\\Users\\Columns\\Email',
                 'parse_field' => 'getValue',
             ],
-            'new_email' => '\\Extasy\\Model\\Columns\\Input',
+            'new_email' => '\\Extasy\\Users\\Columns\\Email',
 
         ];
         $fields = $this->configurationRepository->read()->fields;
